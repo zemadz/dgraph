@@ -52,6 +52,7 @@ func (s *Server) maxTxnTs() uint64 {
 // This function is triggered by an RPC call. We ensure that only leader can assign new UIDs,
 // so we can tackle any collisions that might happen with the leasemanager
 // In essence, we just want one server to be handing out new uids.
+// This returns ids in range [num.StartId, num.EndId], both ends inclusive.
 func (s *Server) lease(ctx context.Context, num *intern.Num, txn bool) (*api.AssignedIds, error) {
 	node := s.Node
 	// TODO: Fix when we move to linearizable reads, need to check if we are the leader, might be
